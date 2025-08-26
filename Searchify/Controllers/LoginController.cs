@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SearchDemo.Application.Command;
 using Searchify.Application.Commands;
 using Searchify.Domain.Model;
 

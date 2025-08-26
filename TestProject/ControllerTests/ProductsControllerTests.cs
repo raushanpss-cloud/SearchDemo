@@ -29,7 +29,7 @@ namespace Searchify.Test.ControllerTests
                 new Product { ProductId = 2, Name = "Product2" }
             };
 
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsCommand>(), default))
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), default))
                          .ReturnsAsync(products);
 
             // Act
@@ -45,7 +45,7 @@ namespace Searchify.Test.ControllerTests
         public async Task GetProducts_ShouldReturnNotFound_WhenNoProductsExist()
         {
             // Arrange
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsCommand>(), default))
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), default))
                          .ReturnsAsync(new List<Product>());
 
             // Act
@@ -64,7 +64,7 @@ namespace Searchify.Test.ControllerTests
         public async Task GetProducts_ShouldReturnInternalServerError_WhenExceptionOccurs()
         {
             // Arrange
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsCommand>(), default))
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), default))
                          .ThrowsAsync(new Exception("Unexpected error"));
 
             // Act
@@ -85,7 +85,7 @@ namespace Searchify.Test.ControllerTests
             // Arrange
             var product = new Product { ProductId = 1, Name = "Product1" };
 
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetProductByIdCommand>(), default))
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetProductByIdQuery>(), default))
                          .ReturnsAsync(product);
 
             // Act
@@ -101,7 +101,7 @@ namespace Searchify.Test.ControllerTests
         public async Task GetProductById_ShouldReturnNotFound_WhenProductDoesNotExist()
         {
             // Arrange
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetProductByIdCommand>(), default))
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetProductByIdQuery>(), default))
                          .ReturnsAsync((Product)null);
 
             // Act
@@ -120,7 +120,7 @@ namespace Searchify.Test.ControllerTests
         public async Task GetProductById_ShouldReturnInternalServerError_WhenExceptionOccurs()
         {
             // Arrange
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetProductByIdCommand>(), default))
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetProductByIdQuery>(), default))
                          .ThrowsAsync(new Exception("Unexpected error"));
 
             // Act

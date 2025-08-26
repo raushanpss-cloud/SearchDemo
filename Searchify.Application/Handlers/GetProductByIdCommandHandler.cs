@@ -5,7 +5,7 @@ using Searchify.Domain.Model;
 
 namespace Searchify.Application.CommandHandlers
 {
-    public class GetProductByIdCommandHandler : IRequestHandler<GetProductByIdCommand, Product>
+    public class GetProductByIdCommandHandler : IRequestHandler<GetProductByIdQuery, Product>
     {
         private readonly IProductService _productService;
 
@@ -13,7 +13,7 @@ namespace Searchify.Application.CommandHandlers
         {
             _productService = productService;
         }
-        public async Task<Product> Handle(GetProductByIdCommand request, CancellationToken cancellationToken)
+        public async Task<Product> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
             return await _productService.GetProductById(request.ProductId);
         }

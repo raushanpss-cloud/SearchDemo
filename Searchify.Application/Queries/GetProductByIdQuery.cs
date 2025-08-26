@@ -3,11 +3,11 @@ using Searchify.Domain.Model;
 
 namespace Searchify.Application.Commands
 {
-    public class GetProductByIdCommand : IRequest<Product>
+    public class GetProductByIdQuery : IRequest<Product>
     {
         public int ProductId { get; set; }
 
-        public GetProductByIdCommand(int productId)
+        public GetProductByIdQuery(int productId)
         {
             ProductId = productId;
         }

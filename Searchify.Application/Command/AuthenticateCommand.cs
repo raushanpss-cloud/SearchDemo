@@ -1,7 +1,12 @@
-﻿using MediatR;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MediatR;
 using Searchify.Domain.Model;
 
-namespace Searchify.Application.Commands
+namespace SearchDemo.Application.Command
 {
     public class AuthenticateCommand : IRequest<string>
     {

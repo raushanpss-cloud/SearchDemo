@@ -3,7 +3,7 @@ using Searchify.Domain.Model;
 
 namespace Searchify.Application.Commands
 {
-    public class GetAllProductsCommand : IRequest<IEnumerable<Product>>
+    public class GetAllProductsQuery : IRequest<IEnumerable<Product>>
     {
 
     }

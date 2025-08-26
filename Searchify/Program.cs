@@ -1,8 +1,12 @@
+using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using SearchDemo.API.CustomMiddleware;
+using SearchDemo.Application.Command;
 using Searchify.Application.Commands;
 using Searchify.Domain.Interfaces;
 using Searchify.Infrastructure;
@@ -18,6 +22,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+
     // Add Security Definition
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -49,7 +54,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
+builder.Services.AddTransient<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddSingleton<IAuthenticateService, AuthenticateService>();
@@ -71,6 +76,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
         ClockSkew = TimeSpan.Zero
     };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnChallenge = context =>
+        {
+            context.HandleResponse(); // Prevent default 401 response
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Response.ContentType = "application/json";
+            var result = JsonConvert.SerializeObject(new { message = "Invalid or missing token." });
+            return context.Response.WriteAsync(result);
+        }
+    };
 });
 
 var app = builder.Build();
@@ -81,7 +98,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SearchDemo.Application.Command;
 using Searchify.Application.Commands;
 using Searchify.Domain.Interfaces;
 

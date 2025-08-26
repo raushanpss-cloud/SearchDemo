@@ -30,7 +30,7 @@ namespace Searchify.Test.CommandHandlerTests
             _mockProductService.Setup(service => service.GetAllProducts())
                                .ReturnsAsync(products);
 
-            var command = new GetAllProductsCommand();
+            var command = new GetAllProductsQuery();
             var cancellationToken = new CancellationToken();
 
             // Act
@@ -50,7 +50,7 @@ namespace Searchify.Test.CommandHandlerTests
             _mockProductService.Setup(service => service.GetAllProducts())
                                .ReturnsAsync(new List<Product>());
 
-            var command = new GetAllProductsCommand();
+            var command = new GetAllProductsQuery();
             var cancellationToken = new CancellationToken();
 
             // Act

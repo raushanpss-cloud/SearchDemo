@@ -22,8 +22,9 @@ namespace Searchify.API.Controllers
         {
             try
             {
-                var command = new GetAllProductsCommand();
-                var result = await _mediator.Send(command);
+                
+                var query = new GetAllProductsQuery();
+                var result = await _mediator.Send(query);
 
                 if (result == null || !result.Any())
                 {
@@ -43,8 +44,8 @@ namespace Searchify.API.Controllers
         {
             try
             {
-                var command = new GetProductByIdCommand(id);
-                var result = await _mediator.Send(command);
+                var query = new GetProductByIdQuery(id);
+                var result = await _mediator.Send(query);
 
                 if (result == null)
                 {
