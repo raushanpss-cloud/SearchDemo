@@ -19,30 +19,7 @@ Project Structure:
 
 Pre-requisite to run the application:
 	a) Visual studio 2022 (.NET Core 8)
-	b) SSMS
-	c) MS SQL Server Setup:
-		1) Replace the Server name in connection string from appsettings.json
-		2) Run the command from Package Manager Console Visual studio - "dotnet ef migrations add InitialCreate --project <provide path of Searchify.API.csproj>"
-		3) Then run "dotnet ef database update --project <provide path of Searchify.API.csproj>"
-		4) Run the below script in SQL query editor.
-			INSERT INTO [Products] ([Name], [Description], [Price], [Category], [Stock])
-			VALUES
-			('Mobile Phone', 'Latest smartphone with high performance and camera quality.', 299.99, 'Electronics', 150),
-			('Bluetooth Earphones', 'Wireless earphones with noise-canceling technology.', 79.99, 'Electronics', 250),
-			('Laptop', 'Powerful laptop with 16GB RAM and 512GB SSD.', 999.99, 'Electronics', 100),
-			('Smart Watch', 'Fitness tracker with heart rate monitoring and GPS.', 129.99, 'Electronics', 200),
-			('LED TV', '55-inch 4K Ultra HD smart LED television.', 499.99, 'Electronics', 80),
-			('Office Chair', 'Ergonomic office chair with adjustable height and lumbar support.', 89.99, 'Furniture', 120),
-			('Wooden Dining Table', 'Elegant wooden dining table with 6 chairs.', 399.99, 'Furniture', 60),
-			('Sofa Set', 'Modern sofa set with comfortable seating for 5 people.', 799.99, 'Furniture', 50),
-			('Bookshelf', 'Wooden bookshelf with 5 shelves for storing books.', 129.99, 'Furniture', 150),
-			('Coffee Table', 'Glass top coffee table with a sleek design.', 159.99, 'Furniture', 110),
-			('Men\'s Shirt', 'Cotton shirt with a regular fit, available in various colors.', 39.99, 'Clothing', 300),
-			('Men\'s Jeans', 'Denim jeans with a slim fit design.', 49.99, 'Clothing', 200),
-			('Women\'s Dress', 'Elegant dress with floral patterns, perfect for evening events.', 59.99, 'Clothing', 150),
-			('Women\'s Jacket', 'Leather jacket with a stylish design for winter wear.', 79.99, 'Clothing', 120),
-			('Sports Shoes', 'Comfortable sports shoes for running and casual wear.', 69.99, 'Clothing', 250);
- 
+	
 		
 Using the APIS:	
 1) Generate JWT Token using username and password using login API (/api/login)
@@ -96,6 +73,19 @@ Response body:
 }
 3) Call GetProductById using JWT token (/api/product/{id})
 https://localhost:44375/api/product/5
+ 
+Response body:
+{
+  "productId": 5,
+  "name": "LED TV",
+  "price": 499.99,
+  "stock": 80,
+  "description": "55-inch 4K Ultra HD smart LED television.",
+  "category": "Electronics"
+}
+
+3) Call GetSearchdata using JWT token (/api/SearchHistory)
+https://localhost:44375/api/SearchHistory
  
 Response body:
 {
