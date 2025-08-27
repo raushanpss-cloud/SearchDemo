@@ -1,7 +1,10 @@
+using System;
+using System.Text.Json;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Searchify.Application.Commands;
+using Searchify.Domain.Model;
 
 namespace Searchify.API.Controllers
 {
@@ -10,6 +13,7 @@ namespace Searchify.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _filePath = "Data/Products.json";
 
         public ProductsController(IMediator mediator)
         {
@@ -59,5 +63,10 @@ namespace Searchify.API.Controllers
                 return StatusCode(500, new { Message = "An unexpected error occurred.", Detail = ex.Message });
             }
         }
+
+       
+
+       
     }
 }
+

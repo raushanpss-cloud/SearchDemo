@@ -40,5 +40,20 @@ namespace Searchify.Infrastructure.Services
             }
 
         }
+
+
+        public async Task<Product> GetSearch(int id)
+        {
+            try
+            {
+                return await _productRepository.GetProductById(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

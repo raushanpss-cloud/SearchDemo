@@ -1,4 +1,6 @@
-﻿using Azure.Core;
+﻿using System.Text.Json;
+using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Searchify.Domain.Interfaces;
 using Searchify.Domain.Model;
@@ -8,8 +10,10 @@ namespace Searchify.Infrastructure.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
+        private readonly string _filePath = "Data/Products.json";
 
         private List<Product> _products = new();
+
         public ProductRepository(AppDbContext context)
         {
             _context = context;
@@ -39,6 +43,10 @@ namespace Searchify.Infrastructure.Repositories
             try
             {
                 var product = _products.FirstOrDefault(x => x.ProductId ==id);
+                if (product != null)
+                {
+                    SaveSearch(product);
+                }
                 //await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
                 return product;
             }
@@ -47,6 +55,34 @@ namespace Searchify.Infrastructure.Repositories
                 throw;
             }
 
+        }
+
+       
+
+
+        public string SaveSearch(Product product)
+        {
+            
+
+            try
+            {
+                // Read existing data
+                var people = System.IO.File.Exists(_filePath)
+                ? JsonSerializer.Deserialize<List<Product>>(System.IO.File.ReadAllText(_filePath)) ?? new List<Product>()
+                    : new List<Product>();
+
+                // Add new person
+                people.Add(product);
+
+                // Save updated data to file
+                System.IO.File.WriteAllText(_filePath, JsonSerializer.Serialize(people));
+
+                return "Data saved successfully.";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

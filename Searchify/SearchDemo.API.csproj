@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Searchify.InfraStructure\SearchDemo.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>
