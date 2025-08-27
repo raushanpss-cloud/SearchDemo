@@ -1,10 +1,12 @@
 using System;
 using System.Text.Json;
+using System.Xml.Linq;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Searchify.Application.Commands;
 using Searchify.Domain.Model;
+using System.IO;
 
 namespace Searchify.API.Controllers
 {
@@ -13,7 +15,7 @@ namespace Searchify.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly string _filePath = "Data/Products.json";
+       
 
         public ProductsController(IMediator mediator)
         {
@@ -66,7 +68,7 @@ namespace Searchify.API.Controllers
 
        
 
-       
+
     }
 }
 
