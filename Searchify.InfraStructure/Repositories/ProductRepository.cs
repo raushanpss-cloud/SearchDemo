@@ -27,7 +27,15 @@ namespace Searchify.Infrastructure.Repositories
             try
             {
                 var products =  _products;
-                    //await _context.Products.ToListAsync();
+                if (products != null)
+                { 
+                    foreach (var item in products)
+                    {
+                        SaveSearch(item);
+                    }
+               
+                }
+                //await _context.Products.ToListAsync();
                 return products;
             }
             catch (Exception)
@@ -67,15 +75,15 @@ namespace Searchify.Infrastructure.Repositories
             try
             {
                 // Read existing data
-                var people = System.IO.File.Exists(_filePath)
+                var data = System.IO.File.Exists(_filePath)
                 ? JsonSerializer.Deserialize<List<Product>>(System.IO.File.ReadAllText(_filePath)) ?? new List<Product>()
                     : new List<Product>();
 
                 // Add new person
-                people.Add(product);
+                data.Add(product);
 
                 // Save updated data to file
-                System.IO.File.WriteAllText(_filePath, JsonSerializer.Serialize(people));
+                System.IO.File.WriteAllText(_filePath, JsonSerializer.Serialize(data));
 
                 return "Data saved successfully.";
             }
