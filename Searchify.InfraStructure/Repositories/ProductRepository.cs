@@ -79,7 +79,7 @@ namespace Searchify.Infrastructure.Repositories
                 ? JsonSerializer.Deserialize<List<Product>>(System.IO.File.ReadAllText(_filePath)) ?? new List<Product>()
                     : new List<Product>();
 
-                // Add new person
+                // Add new product
                 data.Add(product);
 
                 // Save updated data to file
